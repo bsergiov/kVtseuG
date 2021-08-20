@@ -16,8 +16,8 @@ class PromoBaseController extends Controller
     {
         $respromo = [
             "purchaseID" => [
-                "com.app.8",
-                "com.app.23"
+                "com.VkAnalytics.monthly.350",
+                "com.VkAnalytics.weekly.350"
             ]
         ];
 
