@@ -19,7 +19,7 @@ class PromoBaseController extends Controller
                 "com.VkAnalytics.weekly.150",
                 "com.VkAnalytics.monthly"
             ],
-            "responseDb" => true
+            "responseDb" => false
         ];
 
         $headers = ['Content-Type' => 'application/json; charset=utf-8'];
