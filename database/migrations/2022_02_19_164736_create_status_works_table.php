@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePromoBasesTable extends Migration
+class CreateStatusWorksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreatePromoBasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('promo_bases', function (Blueprint $table) {
+        Schema::create('status_works', function (Blueprint $table) {
             $table->id();
-            $table->string("purchase_id")->nullable();
-//            $table->string("purchase_id")->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreatePromoBasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('promo_bases');
+        Schema::dropIfExists('status_works');
     }
 }

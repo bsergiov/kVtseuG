@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\StatusWork;
 use App\Models\Subscribe;
 
-class PromoBaseController extends Controller
+class SubscribeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,25 +15,10 @@ class PromoBaseController extends Controller
      */
     public function index()
     {
-        $status = StatusWork::all();
-        $status = $status[0]['status'];
-        $status = $status == 1 ? true : false;
-
-        $subscribe= Subscribe::all();
-        $purchaseID = [];
-        $i = 0;
-        foreach ($subscribe as $value) {
-            $purchaseID[$i] = $value['purchase_id'];
-            $i ++;
-        }
-
-        $respromo = [
-            "purchaseID" => $purchaseID,
-            "responseDb" => $status
-        ];
-
-        $headers = ['Content-Type' => 'application/json; charset=utf-8'];
-        return response()->json($respromo, 200, $headers, JSON_UNESCAPED_UNICODE);
+        $subscribe = Subscribe::all();
+        return view('admin.index',
+        ['subscribe' => $subscribe]
+        );
     }
 
     /**
