@@ -1,46 +1,59 @@
 @extends('layouts.master')
+{{--@extends('layouts.app')--}}
+@extends('layouts.navigation')
+
 
 @section('title')
     {{--@section('sidebar')--}}
     @parent
 @stop
 @section('content')
-    <h2>Purchase Id {{!empty($subscribe) ? $subscribe[0]['status'] : "Note date"}}</h2>
-    <form action="" method="POST">
+    @if(session('success'))
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+            <h4><i class="icon fa fa-check"></i>{{session('success')}}</h4>
+        </div>
+    @endif
+{{--    status --}}
+    <form action="{{route('status.update', '1')}}" method="POST">
         @csrf
-        <div class="mb-1">
-            <label for="exampleFormControlTitle" class="form-label">Purchase id</label>
-            @foreach($subscribe as $value)
-            <input
-                type="text"
-                class="form-control"
-                id="exampleFormControlTitle"
-                name="purchase_id_{{$value['id']}}" required
-                placeholder="{{$value['purchase_id']}}"
-            >
-            @endforeach
+        @method("PUT")
+        <label for="exampleFormControlTitle" class="form-label mt-3 mb-1">Status</label>
+        <div class="row">
+            <div class="col-md-10">
+                <select class="form-control" id="exampleFormControlTitle" name="status" required>
+                    <option value="{{$status ? "true" : "false"}}">{{$status ? "true" : "false"}}</option>
+                    <option value="true">true</option>
+                    <option value="false">false</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-success">Update</button>
+            </div>
         </div>
-        <div class="mb-1">
-            <label for="exampleFormControlTitle" class="form-label">Status</label>
-            <select class="form-control" id="exampleFormControlTitle" name="status" required>
-                <option value="true">true</option>
-                <option value="false">false</option>
-            </select>
-        </div>
-        <div class="mb-1">
-            <label for="exampleFormControlTitle" class="form-label">KeyWord</label>
-            <input type="text" class="form-control" id="exampleFormControlTitle" name="keyword" required>
-        </div>
-
-
-        <button type="submit" class="btn btn-primary">Update</button>
     </form>
+{{--    Purchase id --}}
+<label for="exampleFormControlTitle" class="form-label mt-3 mb-0">Purchase id</label>
+@foreach($subscriptions as $subscribe)
+    <form action="{{route('admin.update', $subscribe['id'])}}" method="POST">
+        @csrf
+        @method("PUT")
+        <div class="row mt-1">
+            <div class="col-md-10">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="exampleFormControlTitle"
+                    name="purchase_id" required
+                    value="{{$subscribe['purchase_id']}}"
+                >
+            </div>
+           <div class="col-md-2">
+               <button type="submit" class="btn btn-success">Update</button>
+           </div>
+        </div>
+
+    </form>
+@endforeach
     <hr>
-
-
-
-
-
-
-
 @stop

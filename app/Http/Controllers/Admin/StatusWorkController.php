@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\StatusWork;
 use Illuminate\Http\Request;
-use App\Models\Subscribe;
 
-class SubscribeController extends Controller
+class StatusWorkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,16 +15,7 @@ class SubscribeController extends Controller
      */
     public function index()
     {
-        $subscriptions = Subscribe::all();
-        $status = StatusWork::where('id', '=', 1)->get();
-
-        $status = $status[0]['status'] == 1;
-        return view('admin.index',
-            [
-                'subscriptions' => $subscriptions,
-                'status'        => $status
-            ]
-        );
+        //
     }
 
     /**
@@ -41,7 +31,7 @@ class SubscribeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -52,7 +42,7 @@ class SubscribeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -63,7 +53,7 @@ class SubscribeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -74,28 +64,26 @@ class SubscribeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        Subscribe::where('id', '=', $id)->update(
-            [
-                'purchase_id' => $request['purchase_id']
-            ]
-        );
-        return redirect()->route('admin.index')->withSuccess('Данные подписки успешно обновлены!');
+        StatusWork::where('id', '=', $id)->update([
+            'status' => $request['status'] == 'true' ? 1 : 0
+        ]);
+        return redirect()->route('admin.index')->withSuccess('Статус успешно обновлен!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+
     }
 }

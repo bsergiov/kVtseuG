@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class StatusWork extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-      'status'
+        'id',
+        'status',
+        'created_at',
+        'updated_at'
     ];
 }

@@ -17,4 +17,11 @@ use App\Http\Controllers\Admin\SubscribeController;
 Route::get('/', function () {
     return view('home');
 });
-Route::resource('/admin', SubscribeController::class);
+
+Route::get('/dashboard', [SubscribeController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
+Route::resource('/admin', \App\Http\Controllers\Admin\SubscribeController::class)->middleware(['auth']);
+Route::resource('/status', \App\Http\Controllers\Admin\StatusWorkController::class)->middleware(['auth']);
+
+require __DIR__.'/auth.php';
+
